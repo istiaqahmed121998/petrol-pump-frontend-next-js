@@ -79,7 +79,6 @@ const Guard = ({ children, authGuard, guestGuard }) => {
 
 // ** Configure JSS & ClassName
 const App = props => {
-
   const { Component, emotionCache = clientSideEmotionCache, pageProps, ...appProps } = props
   // Variables
   const contentHeightFixed = Component.contentHeightFixed ?? false
@@ -89,17 +88,45 @@ const App = props => {
   const setConfig = Component.setConfig ?? undefined
   const authGuard = Component.authGuard ?? true
   const guestGuard = Component.guestGuard ?? false
-  
+
   return (
     <CacheProvider value={emotionCache}>
-      
       <Head>
-        <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
+        <title>{`${themeConfig.templateName}`}</title>
+        <meta name='robots' content='index,follow' />
+        <meta name='title' content='Sadek Filling Station' />
+        <meta name='google-site-verification' content='OGUR6nifyf2unOD_ADhq83mk5Tq1lYJnWJE5zDe1sCk' />
         <meta
+          content='Sadek Filling Station located at 32/A/18, Rayerbazar, Dhaka offers the safest services
+  with a reasonable fuel price and enjoyable environment'
           name='description'
-          content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
         />
-        <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
+        <meta
+          content='gas,petrolpump,filling,station,sadekkhan,diesel,rayer-bazar,octane,bangladesh,dhaka,dhaka13,mohammadpur,mobil,bike,bus,car'
+          name='keywords'
+        />
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content='http://www.sadekfillingstation.com' />
+        <meta property='og:title' content='Sadek Filling Station' />
+        <meta
+          property='og:description'
+          content='Sadek Filling Station located at 32/A/18, Rayerbazar, Dhaka offers the safest services
+  with a reasonable fuel price and enjoyable environment'
+        />
+        <meta property='og:image' content='https://www.sadekfillingstation.com/slide-1.jpg' />
+
+        <meta property='twitter:card' content='summary_large_image' />
+        <meta property='twitter:url' content='http://www.sadekfillingstation.com' />
+        <meta property='twitter:title' content='Sadek Filling Station' />
+        <meta
+          property='twitter:description'
+          content='Sadek Filling Station located at 32/A/18, Rayerbazar, Dhaka offers the safest services
+with a reasonable fuel price and enjoyable environment'
+        />
+        <meta
+          property='twitter:image'
+          content='https://www.sadekfillingstation.com/slide-1.jpg'
+        ></meta>
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 
