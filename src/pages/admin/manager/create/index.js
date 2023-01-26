@@ -15,18 +15,12 @@ import FormHelperText from '@mui/material/FormHelperText'
 // ** Third Party Imports
 import toast from 'react-hot-toast'
 import { useForm, Controller } from 'react-hook-form'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
 import { useRouter } from 'next/router'
-
 const defaultValues = {
   manager_name: '',
   phone_number: '',
   shift: ''
 }
-
-
 const ManagerCreate = () => {
   const router = useRouter()
 
@@ -66,6 +60,7 @@ const ManagerCreate = () => {
     <Card>
       <CardHeader title='Create Manager' />
       <CardContent>
+    
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={5}>
             <Grid item xs={12} sm={6}>

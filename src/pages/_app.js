@@ -89,7 +89,7 @@ const App = props => {
   const setConfig = Component.setConfig ?? undefined
   const authGuard = Component.authGuard ?? true
   const guestGuard = Component.guestGuard ?? false
-  debugger
+  
   return (
     <CacheProvider value={emotionCache}>
       

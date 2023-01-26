@@ -26,7 +26,6 @@ const ManagerEdit = () => {
   const router = useRouter()
   const { id } = router.query
   const [isLoading, setIsLoading] = useState(true)
-	const [manager,setManager]=useState("")
   const {
     control,
     handleSubmit,
@@ -40,12 +39,9 @@ const ManagerEdit = () => {
     }
     const manager = async () => {
       const check = `/manager/${id}`
-      console.log(check)
       await axiosInstance
         .get(check)
         .then(res => {
-
-					console.log(res.data.data.manager_name)
 					setValue("manager_name",res.data.data.manager_name)
 					setValue("phone_number",res.data.data.phone_number)
 					setValue("shift",res.data.data.shift)
