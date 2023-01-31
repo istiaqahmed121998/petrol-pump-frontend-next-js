@@ -193,7 +193,7 @@ const editDiesel = () => {
         </Box>
       ) : (
         <Card>
-          <CardHeader title='Validation Schema With OnChange' />
+          <CardHeader title='Edit Diesel' />
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)}>
               <CardContent>

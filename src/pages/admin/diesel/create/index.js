@@ -37,14 +37,14 @@ import { axiosInstance } from 'src/lib/axios'
 const defaultValues = {
   manager: '',
   date: null,
-  time: '',
+  time: new Date(),
   shift: '',
   prev_stock: '',
   new_stock: '',
   total_stock: '',
   sell_quantity: '',
-  buy_rate:'',
-  sell_rate:'',
+  buy_rate: '',
+  sell_rate: '',
   invest: 0,
   earn: 0,
   profit: 0
@@ -56,7 +56,15 @@ const PickersComponent = forwardRef(({ ...props }, ref) => {
   const { label, readOnly } = props
 
   return (
-    <TextField inputRef={ref} {...props} label={label || ''} {...(readOnly && { inputProps: { readOnly: true } })} />
+    <TextField
+      inputProps={{
+        autoComplete: 'off'
+      }}
+      inputRef={ref}
+      {...props}
+      label={label || ''}
+      {...(readOnly && { inputProps: { readOnly: true } })}
+    />
   )
 })
 
@@ -134,18 +142,17 @@ const createDiesel = () => {
   }, [])
 
   useEffect(() => {
-  
     const calculate = () => {
       if (values.manager) {
         const shift = managers.filter(d => d.id == values.manager)[0].shift
-  
+
         if (shift !== values.shift) {
           setValue('shift', shift)
         }
       }
-      const invest = Number((parseFloat((values.sell_quantity) || "0")* parseFloat((values.buy_rate) || "0")).toFixed(4));
-      const earn = Number((parseFloat((values.sell_quantity) || "0")* parseFloat((values.sell_rate) || "0")).toFixed(4));
-      const profit=Number((earn-invest).toFixed(4))
+      const invest = Number((parseFloat(values.sell_quantity || '0') * parseFloat(values.buy_rate || '0')).toFixed(4))
+      const earn = Number((parseFloat(values.sell_quantity || '0') * parseFloat(values.sell_rate || '0')).toFixed(4))
+      const profit = Number((earn - invest).toFixed(4))
       if (invest !== values.invest) {
         setValue('invest', invest)
       }
@@ -155,28 +162,31 @@ const createDiesel = () => {
       if (profit !== values.profit) {
         setValue('profit', profit)
       }
-
+      if(values.prev_stock!=values.total_stock){
+        setValue("total_stock",values.prev_stock)
+      }
     }
     calculate()
   }, [values, setValue])
 
   const onSubmit = async data => {
-
-    let {date,time}=data
-    date=moment(date).format('YYYY-MM-DD')
-    time=moment(new Date(time)).format('LT')
-    data.date=date
-    data.time=time
-    axiosInstance.post("/diesel",data).then(res=>{
-      toast.success('Successfully Added')
-      setTimeout(()=>{
-        reset()
-      },1000)
-    
-    }).catch(err=>{
-      toast.error('Something went wrong')
-    })
-   
+    let { date, time } = data
+    date = moment(date).format('YYYY-MM-DD')
+    time = moment(new Date(time)).format('LT')
+    data.date = date
+    data.time = time
+    axiosInstance
+      .post('/diesel', data)
+      .then(res => {
+        toast.success('Successfully Added')
+        setTimeout(() => {
+          reset()
+          setValue("manager",data.manager.toString())
+        }, 1000)
+      })
+      .catch(err => {
+        toast.error('Something went wrong')
+      })
   }
 
   return (
@@ -204,7 +214,6 @@ const createDiesel = () => {
                         name='manager'
                         control={control}
                         rules={{ required: true }}
-                        defaultValue={''}
                         render={({ field: { value, onChange } }) => (
                           <FormControl fullWidth>
                             <InputLabel id='form-layouts-separator-select-label'>Manager</InputLabel>
@@ -215,8 +224,12 @@ const createDiesel = () => {
                               labelId='form-layouts-separator-select-label'
                               onChange={onChange}
                             >
-                              {managers.map(function (item,i) {
-                                return <MenuItem key={i} value={item.id}>{item.manager_name}</MenuItem>
+                              {managers.map(function (item, i) {
+                                return (
+                                  <MenuItem key={i} value={item.id}>
+                                    {item.manager_name}
+                                  </MenuItem>
+                                )
                               })}
                             </Select>
                           </FormControl>
@@ -241,7 +254,6 @@ const createDiesel = () => {
                             value={value}
                             onChange={onChange}
                             placeholder='-to-'
-                   
                             aria-describedby='validation-schema-shift'
                           />
                         )}
@@ -332,7 +344,6 @@ const createDiesel = () => {
                               placeholder=''
                               value={value}
                               onChange={onChange}
-                             
                               aria-describedby='validation-schema-prev_stock'
                               options={{
                                 numeral: true,
@@ -341,6 +352,7 @@ const createDiesel = () => {
                                 numeralDecimalScale: 4,
                                 numeralPositiveOnly: true
                               }}
+                              autoComplete='off'
                             />
                           </CleaveWrapper>
                         )}
@@ -376,6 +388,7 @@ const createDiesel = () => {
                                 numeralDecimalScale: 4,
                                 numeralPositiveOnly: true
                               }}
+                              autoComplete='off'
                             />
                           </CleaveWrapper>
                         )}
@@ -411,6 +424,7 @@ const createDiesel = () => {
                                 numeralDecimalScale: 4,
                                 numeralPositiveOnly: true
                               }}
+                              autoComplete='off'
                             />
                           </CleaveWrapper>
                         )}
@@ -455,6 +469,7 @@ const createDiesel = () => {
                                 numeralDecimalScale: 4,
                                 numeralPositiveOnly: true
                               }}
+                              autoComplete='off'
                             />
                           </CleaveWrapper>
                         )}
@@ -490,6 +505,7 @@ const createDiesel = () => {
                                 numeralDecimalScale: 4,
                                 numeralPositiveOnly: true
                               }}
+                              autoComplete='off'
                             />
                           </CleaveWrapper>
                         )}
@@ -525,6 +541,7 @@ const createDiesel = () => {
                                 numeralDecimalScale: 4,
                                 numeralPositiveOnly: true
                               }}
+                              autoComplete='off'
                             />
                           </CleaveWrapper>
                         )}
@@ -551,6 +568,11 @@ const createDiesel = () => {
                             id='form-props-read-only-invest'
                             InputProps={{ readOnly: true }}
                             onChange={onChange}
+                            sx={{
+                              input: {
+                                color: "red",
+                              }
+                            }}
                           />
                         )}
                       />
@@ -571,6 +593,11 @@ const createDiesel = () => {
                             id='form-props-read-only-input'
                             InputProps={{ readOnly: true }}
                             onChange={onChange}
+                            sx={{
+                              input: {
+                                color: "blue",
+                              }
+                            }}
                           />
                         )}
                       />
@@ -592,6 +619,11 @@ const createDiesel = () => {
                             id='form-props-read-only-input'
                             InputProps={{ readOnly: true }}
                             onChange={onChange}
+                            sx={{
+                              input: {
+                                color: value>=0? "green":"red",
+                              }
+                            }}
                           />
                         )}
                       />

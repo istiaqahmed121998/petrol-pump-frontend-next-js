@@ -33,7 +33,7 @@ const viewMobil = () => {
   const [page, setPage] = useState(0)
   const [total, setTotal] = useState(0)
   const [sort, setSort] = useState('DESC')
-  const [pageSize, setPageSize] = useState(30)
+  const [pageSize, setPageSize] = useState(31)
   const [rows, setRows] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [sortColumn, setSortColumn] = useState('date')
@@ -273,7 +273,7 @@ const viewMobil = () => {
             sortingMode='server'
             paginationMode='server'
             onSortModelChange={handleSortModel}
-            rowsPerPageOptions={[ 50,100]}
+            rowsPerPageOptions={[ 31,50,100]}
             onPageChange={newPage => setPage(newPage)}
             components={{ Toolbar: CustomServerSideToolbar }}
             onPageSizeChange={newPageSize => setPageSize(newPageSize)}

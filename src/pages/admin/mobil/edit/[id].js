@@ -193,7 +193,7 @@ const editMobil = () => {
         </Box>
       ) : (
         <Card>
-          <CardHeader title='Validation Schema With OnChange' />
+          <CardHeader title='Edit Mobil' />
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)}>
               <CardContent>
@@ -209,7 +209,6 @@ const editMobil = () => {
                         name='manager'
                         control={control}
                         rules={{ required: true }}
-                        defaultValue={''}
                         render={({ field: { value, onChange } }) => (
                           <FormControl fullWidth>
                             <InputLabel id='form-layouts-separator-select-label'>Manager</InputLabel>

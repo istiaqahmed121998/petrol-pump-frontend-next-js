@@ -86,11 +86,20 @@ function IndexHome() {
               <Button
                 key={1}
                 component={Link}
-                href='/aa'
+                href='/about'
                 variant='contained'
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                3123123
+                About
+              </Button>
+              <Button
+                key={1}
+                component={Link}
+                href='/about'
+                variant='contained'
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Contact
               </Button>
             </Box>
           </Toolbar>
@@ -105,16 +114,11 @@ function IndexHome() {
       >
         <Container maxWidth='sm'>
           <Typography component='h1' variant='h2' align='center' color='text.primary' gutterBottom>
-            Album layout
+ Sadek Khan Filling Station 
           </Typography>
           <Typography variant='h5' align='center' color='text.secondary' paragraph>
-            Something short and leading about the collection below—its contents, the creator, etc. Make it short and
-            sweet, but not too short so folks don&apos;t simply skip over it entirely.
-          </Typography>
-          <Stack sx={{ pt: 4 }} direction='row' spacing={2} justifyContent='center'>
-            <Button variant='contained'>Main call to action</Button>
-            <Button variant='outlined'>Secondary action</Button>
-          </Stack>
+          Sadek Filling Station is one of the pioneers in the filling station industry of Dhaka   </Typography>
+
         </Container>
       </Box>
 
@@ -439,20 +443,6 @@ function IndexHome() {
         </Grid>
       </Box>
 
-      <Box sx={{ flexGrow: 1, backgroundColor: 'black' , textAlign:"center"}}>
-        <Grid container spacing={2}>
-          <Grid item xs={4} sx={{color:"white"}}>
-            1
-          </Grid>
-          <Grid item xs={4}>
-            2
-          </Grid>
-          <Grid item xs={4}>
-            3
-          </Grid>
-        </Grid>
-      </Box>
-
       <Container
         maxWidth='md'
         component='footer'
@@ -462,20 +452,7 @@ function IndexHome() {
           py: [3, 6]
         }}
       >
-        <Grid container spacing={4} justifyContent='space-evenly'>
-          <Grid item xs={6} sm={3}>
-            <Typography variant='h6' color='text.primary' gutterBottom>
-              asdas
-            </Typography>
-            <ul>
-              <li>
-                <Link href='#' variant='subtitle1' color='text.secondary'>
-                  sadd
-                </Link>
-              </li>
-            </ul>
-          </Grid>
-        </Grid>
+
         <FooterCopyright sx={{ mt: 5 }} />
       </Container>
     </>

@@ -273,7 +273,7 @@ const viewDiesel = () => {
             sortingMode='server'
             paginationMode='server'
             onSortModelChange={handleSortModel}
-            rowsPerPageOptions={[ 50,100]}
+            rowsPerPageOptions={[ 31,50,100]}
             onPageChange={newPage => setPage(newPage)}
             components={{ Toolbar: CustomServerSideToolbar }}
             onPageSizeChange={newPageSize => setPageSize(newPageSize)}

@@ -193,7 +193,7 @@ const editOctane = () => {
         </Box>
       ) : (
         <Card>
-          <CardHeader title='Validation Schema With OnChange' />
+          <CardHeader title='Edit Octane' />
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)}>
               <CardContent>
