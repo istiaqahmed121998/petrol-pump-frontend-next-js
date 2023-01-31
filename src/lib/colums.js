@@ -8,7 +8,7 @@ import { Link } from '@mui/material'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 const dataTableColumns = props=>{
-    console.log(props)
+  
     [
         {
           flex: 1,

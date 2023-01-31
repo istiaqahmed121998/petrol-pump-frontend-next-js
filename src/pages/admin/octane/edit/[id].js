@@ -150,7 +150,6 @@ const editOctane = () => {
   }, [router.isReady])
 
   useEffect(() => {
-    console.log(values)
     const calculate = () => {
       const invest = Number((parseFloat(values.sell_quantity || '0') * parseFloat(values.buy_rate || '0')).toFixed(4))
       const earn = Number((parseFloat(values.sell_quantity || '0') * parseFloat(values.sell_rate || '0')).toFixed(4))

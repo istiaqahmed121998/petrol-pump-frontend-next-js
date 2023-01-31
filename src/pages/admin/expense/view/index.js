@@ -226,11 +226,10 @@ const perDayOctane = () => {
                   }
                 }
                 const res = rows.filter((item) => visibleItems.includes(item.date));
-                console.log(res)
+  
                 const totalExpense = res
                   .map((item) => item.amount)
                   .reduce((a, b) =>    parseFloat((a) || "0")+parseFloat((b) || "0"), 0);
-                console.log(totalExpense)
                 setTotalExpense(totalExpense)
 
               }}

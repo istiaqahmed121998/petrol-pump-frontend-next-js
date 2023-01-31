@@ -375,7 +375,7 @@ const perDayFuel = () => {
                   }
                 }
                 const res = rows.filter(item => visibleItems.includes(item.month))
-                console.log(res)
+     
                 const totalDieselQuantity = res
                   .map(item => item.sell_quantity_diesel)
                   .reduce((a, b) => parseFloat(a || '0') + parseFloat(b || '0'), 0)
