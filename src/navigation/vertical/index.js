@@ -12,7 +12,7 @@ const navigation = () => {
     },
     {
       title: 'Perday Sells',
-      path: '/admin/payday',
+      path: '/admin/perday',
       icon: 'tabler:gas-station'
     },
     ,

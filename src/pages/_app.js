@@ -82,7 +82,6 @@ const App = props => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, ...appProps } = props
   // Variables
   const contentHeightFixed = Component.contentHeightFixed ?? false
-
   const getLayout =
     Component.getLayout ?? (page => <UserLayout contentHeightFixed={contentHeightFixed}>{page}</UserLayout>)
   const setConfig = Component.setConfig ?? undefined
@@ -123,10 +122,7 @@ const App = props => {
           content='Sadek Filling Station located at 32/A/18, Rayerbazar, Dhaka offers the safest services
 with a reasonable fuel price and enjoyable environment'
         />
-        <meta
-          property='twitter:image'
-          content='https://www.sadekfillingstation.com/slide-1.jpg'
-        ></meta>
+        <meta property='twitter:image' content='https://www.sadekfillingstation.com/slide-1.jpg'></meta>
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 
@@ -137,9 +133,13 @@ with a reasonable fuel price and enjoyable environment'
               return (
                 <ThemeComponent settings={settings}>
                   <WindowWrapper>
-                    <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                      {getLayout(<Component {...pageProps} />)}
-                    </Guard>
+                    {[`/404`].includes(appProps.router.pathname) ? (
+                      <> {getLayout(<Component {...pageProps} />)}</>
+                    ) : (
+                      <Guard authGuard={authGuard} guestGuard={guestGuard}>
+                        {getLayout(<Component {...pageProps} />)}
+                      </Guard>
+                    )}
                   </WindowWrapper>
                   <ReactHotToast>
                     <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />

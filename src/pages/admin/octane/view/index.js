@@ -10,7 +10,7 @@ import Card from '@mui/material/Card'
 
 import CardHeader from '@mui/material/CardHeader'
 import CircularProgress from '@mui/material/CircularProgress'
-
+import moment from 'moment'
 import { DataGrid } from '@mui/x-data-grid'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -33,7 +33,7 @@ const viewOctane = () => {
   const [page, setPage] = useState(0)
   const [total, setTotal] = useState(0)
   const [sort, setSort] = useState('DESC')
-  const [pageSize, setPageSize] = useState(7)
+  const [pageSize, setPageSize] = useState(31)
   const [rows, setRows] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [sortColumn, setSortColumn] = useState('date')
@@ -221,8 +221,8 @@ const viewOctane = () => {
             q,
             sort,
             column,
-            start:(start),
-            end:!end?(new Date()):(end)
+            start: moment(start).format('YYYY-MM-DD'),
+            end: !end ? moment(new Date()).format('YYYY-MM-DD') : moment(end).format('YYYY-MM-DD')
           }
         })
         .then(res => {
@@ -260,7 +260,7 @@ const viewOctane = () => {
             <Typography>Loading...</Typography>
           </Box>
         ) : (
-          <div style={{ height: 500, overflow: "auto" }}>
+          <div style={{ height: 700, overflow: "auto" }}>
           
           <DataGrid
             autoHeight
@@ -273,7 +273,7 @@ const viewOctane = () => {
             sortingMode='server'
             paginationMode='server'
             onSortModelChange={handleSortModel}
-            rowsPerPageOptions={[7, 10, 25, 50]}
+            rowsPerPageOptions={[50,100]}
             onPageChange={newPage => setPage(newPage)}
             components={{ Toolbar: CustomServerSideToolbar }}
             onPageSizeChange={newPageSize => setPageSize(newPageSize)}

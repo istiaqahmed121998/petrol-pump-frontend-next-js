@@ -8,18 +8,18 @@ import { Bar } from 'react-chartjs-2'
 
 const ChartjsHorizontalBarChart = props => {
   // ** Props
-  const { info, warning, labelColor, borderColor, legendColor } = props
+  const { year,earns,profits,invests,info,danger, success, labelColor, borderColor, legendColor } = props
 
   const options = {
-    indexAxis: 'y',
+    indexAxis: 'x',
     responsive: true,
     maintainAspectRatio: false,
     animation: { duration: 500 },
     elements: {
       bar: {
         borderRadius: {
-          topRight: 15,
-          bottomRight: 15
+          topRight: 1,
+          bottomRight: 1
         }
       }
     },
@@ -53,28 +53,35 @@ const ChartjsHorizontalBarChart = props => {
   }
 
   const data = {
-    labels: ['MON', 'TUE', 'WED ', 'THU', 'FRI'],
+    labels: ['JAN', 'FEB', 'MAR ', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
     datasets: [
       {
         maxBarThickness: 15,
-        label: 'Market Data',
-        backgroundColor: warning,
+        label: 'INVEST + EXPENSE',
+        backgroundColor: danger,
         borderColor: 'transparent',
-        data: [710, 350, 580, 460, 120]
+        data: invests
       },
       {
         maxBarThickness: 15,
         backgroundColor: info,
-        label: 'Personal Data',
+        label: 'EARN',
         borderColor: 'transparent',
-        data: [430, 590, 510, 240, 360]
+        data: earns
+      },
+      {
+        maxBarThickness: 15,
+        backgroundColor: success,
+        label: 'PROFIT',
+        borderColor: 'transparent',
+        data: profits
       }
     ]
   }
 
   return (
     <Card>
-      <CardHeader title='Balance' subheader='$74,123' />
+      <CardHeader title={'Balance sheet of '+year.getFullYear()} />
       <CardContent>
         <Bar data={data} height={400} options={options} />
       </CardContent>

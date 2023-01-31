@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import { styled, useTheme } from '@mui/material/styles'
 import LinearProgress from '@mui/material/LinearProgress'
-
+import moment from 'moment'
 // ** Custom Components Imports
 import Icon from 'src/@core/components/icon'
 import CustomChip from 'src/@core/components/mui/chip'
@@ -51,10 +51,10 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   }
 }))
 
-const AnalyticsEarningReports = () => {
+const AnalyticsEarningReports = props => {
   // ** Hook
   const theme = useTheme()
-
+  const { month, totalFuelInvest, totalFuelExpense, totalFuelEarn, totalFuelProfit } = props
   const options = {
     chart: {
       parentHeightOffset: 0,
@@ -117,8 +117,8 @@ const AnalyticsEarningReports = () => {
     <Card>
       <CardHeader
         sx={{ pb: 0 }}
-        title='Earning Reports'
-        subheader='Weekly Earnings Overview'
+        title='Earning Reports '
+        subheader={'Earnings Overview '+moment(new Date(month.getFullYear(), month.getMonth(), 1)).format('LL')+ ' - '+moment(new Date(month.getFullYear(), month.getMonth() + 1, 0)).format('LL')}
         subheaderTypographyProps={{ sx: { mt: '0 !important' } }}
         action={
           <OptionsMenu
@@ -128,49 +128,75 @@ const AnalyticsEarningReports = () => {
         }
       />
       <CardContent>
-        <Grid container spacing={6}>
-          <StyledGrid
-            item
-            sm={5}
-            xs={12}
-            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-end' }}
-          >
-            <Box sx={{ mb: 3, rowGap: 1, columnGap: 2.5, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-              <Typography variant='h4'>$468</Typography>
-              <CustomChip rounded size='small' skin='light' color='success' label='+4.2%' />
-            </Box>
-            <Typography variant='body2'>You informed of this week compared to last week</Typography>
-          </StyledGrid>
-          <StyledGrid item xs={12} sm={7}>
-            <ReactApexcharts type='bar' height={160} series={series} options={options} />
-          </StyledGrid>
-        </Grid>
         <Box sx={{ mt: 6, borderRadius: 1, p: theme.spacing(4, 5), border: `1px solid ${theme.palette.divider}` }}>
-          <Grid container spacing={6}>
-            {data.map((item, index) => (
-              <Grid item xs={12} sm={4} key={index}>
-                <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
-                  <CustomAvatar
-                    skin='light'
-                    variant='rounded'
-                    color={item.avatarColor}
-                    sx={{ mr: 2, width: 26, height: 26 }}
-                  >
-                    <Icon fontSize='1.125rem' icon={item.avatarIcon} />
-                  </CustomAvatar>
-                  <Typography sx={{ fontWeight: 500 }}>{item.title}</Typography>
-                </Box>
-                <Typography variant='h5' sx={{ mb: 2.5 }}>
-                  {item.stats}
-                </Typography>
-                <LinearProgress
-                  variant='determinate'
-                  value={item.progress}
-                  color={item.progressColor}
-                  sx={{ height: 4 }}
-                />
-              </Grid>
-            ))}
+          <Grid container spacing={0}>
+            <Grid item xs={12} sm={3}>
+              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
+                <CustomAvatar
+                  skin='light'
+                  variant='rounded'
+                  // color={item.avatarColor}
+                  sx={{ mr: 2, width: 26, height: 26 }}
+                >
+                  <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
+                </CustomAvatar>
+                <Typography sx={{ fontWeight: 500 }}>FUEL INVEST</Typography>
+              </Box>
+              <Typography variant='h5' sx={{ mb: 2.5 }}>
+               {totalFuelInvest} ৳
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
+                <CustomAvatar
+                  skin='light'
+                  variant='rounded'
+                  color={'error'}
+                  sx={{ mr: 2, width: 26, height: 26 }}
+                >
+                  <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
+                </CustomAvatar>
+                <Typography sx={{ fontWeight: 500 }}>Expense</Typography>
+              </Box>
+              <Typography variant='h5' sx={{ mb: 2.5 }}>
+               {totalFuelExpense} ৳
+              </Typography>
+
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
+                <CustomAvatar
+                  skin='light'
+                  variant='rounded'
+                  color={'info'}
+                  sx={{ mr: 2, width: 26, height: 26 }}
+                >
+                  <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
+                </CustomAvatar>
+                <Typography sx={{ fontWeight: 500 }}>FUEL Earn</Typography>
+              </Box>
+              <Typography variant='h5' sx={{ mb: 2.5 }}>
+               {totalFuelEarn} ৳
+              </Typography>
+
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
+                <CustomAvatar
+                  skin='light'
+                  variant='rounded'
+                  color={"success"}
+                  sx={{ mr: 2, width: 26, height: 26 }}
+                >
+                  <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
+                </CustomAvatar>
+                <Typography sx={{ fontWeight: 500 }}>Net Profit</Typography>
+              </Box>
+              <Typography variant='h5' sx={{ mb: 2.5 }}>
+               {totalFuelProfit} ৳
+              </Typography>
+
+            </Grid>
           </Grid>
         </Box>
       </CardContent>

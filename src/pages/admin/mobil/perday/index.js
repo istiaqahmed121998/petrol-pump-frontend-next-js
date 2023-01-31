@@ -7,7 +7,7 @@ import Card from '@mui/material/Card'
 import CustomFooterTotalComponent from 'src/@core/layouts/components/extra-components/CustomFooterTotalComponent'
 import CardHeader from '@mui/material/CardHeader'
 import CircularProgress from '@mui/material/CircularProgress'
-
+import moment from 'moment'
 import { DataGrid } from '@mui/x-data-grid'
 
 import CustomServerSideToolbar from 'src/@core/layouts/components/extra-components/CustomServerSideToolbar'
@@ -60,24 +60,24 @@ const perDayMobil = () => {
     {
       flex: 1,
       minWidth: 110,
-      field: 'payday_invest',
+      field: 'perday_invest',
       headerName: 'Investment',
       type:'number',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.payday_invest}
+          {params.row.perday_invest}
         </Typography>
       )
     },
     {
       flex: 1,
       minWidth: 120,
-      field: 'payday_earn',
+      field: 'perday_earn',
       headerName: 'Earn',
       type:'number',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.payday_earn}
+          {params.row.perday_earn}
         </Typography>
       )
     },
@@ -88,8 +88,8 @@ const perDayMobil = () => {
       headerName: 'Profit',
       type:'number',
       renderCell: params => (
-        <Typography variant='body2' sx={{ color: params.row.payday_profit >= 0 ? 'green' : 'red' }}>
-          {params.row.payday_profit}
+        <Typography variant='body2' sx={{ color: params.row.perday_profit >= 0 ? 'green' : 'red' }}>
+          {params.row.perday_profit}
         </Typography>
       )
     }
@@ -117,8 +117,8 @@ const perDayMobil = () => {
             q,
             sort,
             column,
-            start: (start),
-            end: !end ? (new Date()) : (end)
+            start: moment(start).format('YYYY-MM-DD'),
+            end: !end ? moment(new Date()).format('YYYY-MM-DD') : moment(end).format('YYYY-MM-DD')
           }
         })
         .then(res => {
@@ -197,10 +197,10 @@ const perDayMobil = () => {
                 }
                 const res = rows.filter((item) => visibleItems.includes(item.date));
                 const totalInvestment = res
-                  .map((item) => item.payday_invest)
+                  .map((item) => item.perday_invest)
                   .reduce((a, b) =>    parseFloat((a) || "0")+parseFloat((b) || "0"), 0);
                 const totalEarn = res
-                  .map((item) => item.payday_earn)
+                  .map((item) => item.perday_earn)
                   .reduce((a, b) =>    parseFloat((a) || "0")+parseFloat((b) || "0"), 0);
                   const totalSellingQuantity = res
                   .map((item) => item.perday_sell_quantity)

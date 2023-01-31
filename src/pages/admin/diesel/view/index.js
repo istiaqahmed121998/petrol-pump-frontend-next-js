@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { Link } from '@mui/material'
 import Card from '@mui/material/Card'
-
+import moment from 'moment'
 import CardHeader from '@mui/material/CardHeader'
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -33,7 +33,7 @@ const viewDiesel = () => {
   const [page, setPage] = useState(0)
   const [total, setTotal] = useState(0)
   const [sort, setSort] = useState('DESC')
-  const [pageSize, setPageSize] = useState(7)
+  const [pageSize, setPageSize] = useState(31)
   const [rows, setRows] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [sortColumn, setSortColumn] = useState('date')
@@ -221,8 +221,8 @@ const viewDiesel = () => {
             q,
             sort,
             column,
-            start:(start),
-            end:!end?(new Date()):(end)
+            start: moment(start).format('YYYY-MM-DD'),
+            end: !end ? moment(new Date()).format('YYYY-MM-DD') : moment(end).format('YYYY-MM-DD')
           }
         })
         .then(res => {
@@ -260,7 +260,7 @@ const viewDiesel = () => {
             <Typography>Loading...</Typography>
           </Box>
         ) : (
-          <div style={{ height: 500, overflow: "auto" }}>
+          <div style={{ height: 700, overflow: "auto" }}>
           
           <DataGrid
             autoHeight
@@ -273,7 +273,7 @@ const viewDiesel = () => {
             sortingMode='server'
             paginationMode='server'
             onSortModelChange={handleSortModel}
-            rowsPerPageOptions={[7, 10, 25, 50]}
+            rowsPerPageOptions={[ 50,100]}
             onPageChange={newPage => setPage(newPage)}
             components={{ Toolbar: CustomServerSideToolbar }}
             onPageSizeChange={newPageSize => setPageSize(newPageSize)}
