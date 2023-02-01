@@ -29,16 +29,16 @@ const Home = () => {
   const router = useRouter()
   const theme = useTheme()
   const [isLoading, setIsLoading] = useState(true)
-  const [year, setYear] = useState(subYears(new Date(), 1))
+  const [year, setYear] = useState(new Date())
   const [month, setMonth] = useState(subMonths(new Date(), 1))
   const [totalInvests, setTotalInvests] = useState([])
   const [totalEarns, setTotalEarns] = useState([])
   const [totalProfits, setTotalProfits] = useState([])
 
-  const [totalFuelInvest,setTotalFuelInvest]=useState(0)
-  const [totalFuelExpense,setTotalFuelExpense]=useState(0)
-  const [totalFuelEarn,setTotalFuelEarn]=useState(0)
-  const [totalFuelProfit,setTotalFuelProfit]=useState(0)
+  const [totalFuelInvest, setTotalFuelInvest] = useState(0)
+  const [totalFuelExpense, setTotalFuelExpense] = useState(0)
+  const [totalFuelEarn, setTotalFuelEarn] = useState(0)
+  const [totalFuelProfit, setTotalFuelProfit] = useState(0)
 
   // Vars
   const horizontalBarInfo = '#26c6da'
@@ -69,10 +69,10 @@ const Home = () => {
           .map(a => parseFloat(a.profit_diesel) + parseFloat(a.profit_octane) + parseFloat(a.profit_mobil) - a.expense)
           .reduce((a, b) => a + b, 0)
 
-          setTotalFuelInvest(Number((totalFuelInvest).toFixed(4)))
-          setTotalFuelExpense(Number((totalExpense).toFixed(4)))
-          setTotalFuelEarn(Number((totalEarn).toFixed(4)))
-          setTotalFuelProfit(Number((totalProfit).toFixed(4)))
+        setTotalFuelInvest(Number(totalFuelInvest.toFixed(4)))
+        setTotalFuelExpense(Number(totalExpense.toFixed(4)))
+        setTotalFuelEarn(Number(totalEarn.toFixed(4)))
+        setTotalFuelProfit(Number(totalProfit.toFixed(4)))
       })
   }
 
@@ -106,13 +106,12 @@ const Home = () => {
       })
   }
 
- 
   useEffect(() => {
     if (!router.isReady) {
       return
     }
     if (auth.user) {
-      allDetails()   
+      allDetails()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -127,7 +126,13 @@ const Home = () => {
             <KeenSliderWrapper>
               <Grid container spacing={6}>
                 <Grid item xs={12} md={12}>
-                  <AnalyticsEarningReports totalFuelInvest={totalFuelInvest} totalFuelExpense={totalFuelExpense} totalFuelEarn={totalFuelEarn} totalFuelProfit={totalFuelProfit} month={month}/>
+                  <AnalyticsEarningReports
+                    totalFuelInvest={totalFuelInvest}
+                    totalFuelExpense={totalFuelExpense}
+                    totalFuelEarn={totalFuelEarn}
+                    totalFuelProfit={totalFuelProfit}
+                    month={month}
+                  />
                 </Grid>
                 <Grid item xs={12} md={12}>
                   <ChartjsHorizontalBarChart

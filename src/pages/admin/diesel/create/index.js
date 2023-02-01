@@ -182,6 +182,7 @@ const createDiesel = () => {
         setTimeout(() => {
           reset()
           setValue("manager",data.manager.toString())
+          setValue("time",new Date())
         }, 1000)
       })
       .catch(err => {

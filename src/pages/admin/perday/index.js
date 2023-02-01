@@ -179,6 +179,18 @@ const perDayFuel = () => {
         </Typography>
       )
     },
+    {
+      flex: 1,
+      minWidth: 120,
+      field: 'fuel_profit',
+      headerName: 'Fuel Profit',
+      type: 'number',
+      renderCell: params => (
+        <Typography variant='body2' sx={{ color: 'text.primary' }}>
+          {Number((params.row.earn - params.row.invest).toFixed(4))}
+        </Typography>
+      )
+    },
 
     {
       flex: 1,
@@ -196,7 +208,7 @@ const perDayFuel = () => {
       flex: 1,
       minWidth: 120,
       field: 'profit',
-      headerName: 'profit',
+      headerName: 'Net Profit',
       type: 'number',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
@@ -233,6 +245,7 @@ const perDayFuel = () => {
           }
         })
         .then(res => {
+          console.log(res.data)
           setTotal(res.data.data.length)
           setRows(loadServerRows(page, res.data.data))
           setIsLoading(false)
@@ -294,7 +307,7 @@ const perDayFuel = () => {
                   endDateRange: endDateRange,
                   handleOnChangeRange: handleOnChangeRange
                 },
-                footer: { totalEarn, totalExpense, totalInvest,totalProfit }
+                footer: { totalEarn, totalExpense, totalInvest, totalProfit }
               }}
               onStateChange={state => {
                 const visibleRows = state.filter.visibleRowsLookup
@@ -305,22 +318,23 @@ const perDayFuel = () => {
                   }
                 }
                 const res = rows.filter(item => visibleItems.includes(item.fuel_date))
+                console.log(res)
                 const totalInvest = res
                   .map(item => item.invest)
                   .reduce((a, b) => parseFloat(a || '0') + parseFloat(b || '0'), 0)
                 const totalEarn = res
                   .map(item => item.earn)
                   .reduce((a, b) => parseFloat(a || '0') + parseFloat(b || '0'), 0)
-                  const totalExpense = res
+                const totalExpense = res
                   .map(item => item.expense)
                   .reduce((a, b) => parseFloat(a || '0') + parseFloat(b || '0'), 0)
-                  const totalProfit = res
+                const totalProfit = res
                   .map(item => item.profit)
                   .reduce((a, b) => parseFloat(a || '0') + parseFloat(b || '0'), 0)
-                  setTotalEarn(totalEarn)
-                  setTotalProfit(totalProfit)
-                  setTotalExpense(totalExpense)
-                  setTotalInvest(totalInvest)
+                setTotalEarn(totalEarn)
+                setTotalProfit(totalProfit)
+                setTotalExpense(totalExpense)
+                setTotalInvest(totalInvest)
               }}
             />
           </div>

@@ -118,7 +118,12 @@ const AnalyticsEarningReports = props => {
       <CardHeader
         sx={{ pb: 0 }}
         title='Earning Reports '
-        subheader={'Earnings Overview '+moment(new Date(month.getFullYear(), month.getMonth(), 1)).format('LL')+ ' - '+moment(new Date(month.getFullYear(), month.getMonth() + 1, 0)).format('LL')}
+        subheader={
+          'Earnings Overview ' +
+          moment(new Date(month.getFullYear(), month.getMonth(), 1)).format('LL') +
+          ' - ' +
+          moment(new Date(month.getFullYear(), month.getMonth() + 1, 0)).format('LL')
+        }
         subheaderTypographyProps={{ sx: { mt: '0 !important' } }}
         action={
           <OptionsMenu
@@ -130,6 +135,17 @@ const AnalyticsEarningReports = props => {
       <CardContent>
         <Box sx={{ mt: 6, borderRadius: 1, p: theme.spacing(4, 5), border: `1px solid ${theme.palette.divider}` }}>
           <Grid container spacing={0}>
+          <Grid item xs={12} sm={3}>
+              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
+                <CustomAvatar skin='light' variant='rounded' color={'info'} sx={{ mr: 2, width: 26, height: 26 }}>
+                  <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
+                </CustomAvatar>
+                <Typography sx={{ fontWeight: 500 }}>FUEL Earn</Typography>
+              </Box>
+              <Typography variant='h5' sx={{ mb: 2.5 }}>
+                {totalFuelEarn} ৳
+              </Typography>
+            </Grid>
             <Grid item xs={12} sm={3}>
               <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
                 <CustomAvatar
@@ -143,59 +159,43 @@ const AnalyticsEarningReports = props => {
                 <Typography sx={{ fontWeight: 500 }}>FUEL INVEST</Typography>
               </Box>
               <Typography variant='h5' sx={{ mb: 2.5 }}>
-               {totalFuelInvest} ৳
+                {totalFuelInvest} ৳
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={3}>
+              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
+                <CustomAvatar skin='light' variant='rounded' color={'info'} sx={{ mr: 2, width: 26, height: 26 }}>
+                  <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
+                </CustomAvatar>
+                <Typography sx={{ fontWeight: 500 }}>FUEL Profit</Typography>
+              </Box>
+              <Typography variant='h5' sx={{ mb: 2.5 }}>
+              {Number((totalFuelEarn - totalFuelInvest).toFixed(4))}৳
               </Typography>
             </Grid>
             <Grid item xs={12} sm={3}>
               <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
-                <CustomAvatar
-                  skin='light'
-                  variant='rounded'
-                  color={'error'}
-                  sx={{ mr: 2, width: 26, height: 26 }}
-                >
+                <CustomAvatar skin='light' variant='rounded' color={'error'} sx={{ mr: 2, width: 26, height: 26 }}>
                   <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
                 </CustomAvatar>
                 <Typography sx={{ fontWeight: 500 }}>Expense</Typography>
               </Box>
               <Typography variant='h5' sx={{ mb: 2.5 }}>
-               {totalFuelExpense} ৳
+                {totalFuelExpense} ৳
               </Typography>
-
             </Grid>
-            <Grid item xs={12} sm={3}>
-              <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
-                <CustomAvatar
-                  skin='light'
-                  variant='rounded'
-                  color={'info'}
-                  sx={{ mr: 2, width: 26, height: 26 }}
-                >
-                  <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
-                </CustomAvatar>
-                <Typography sx={{ fontWeight: 500 }}>FUEL Earn</Typography>
-              </Box>
-              <Typography variant='h5' sx={{ mb: 2.5 }}>
-               {totalFuelEarn} ৳
-              </Typography>
 
-            </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={4} alignContent='center' justify='center'>
               <Box sx={{ mb: 2.5, display: 'flex', alignItems: 'center' }}>
-                <CustomAvatar
-                  skin='light'
-                  variant='rounded'
-                  color={"success"}
-                  sx={{ mr: 2, width: 26, height: 26 }}
-                >
+                <CustomAvatar skin='light' variant='rounded' color={'success'} sx={{ mr: 2, width: 26, height: 26 }}>
                   <Icon fontSize='1.125rem' icon='tabler:currency-dollar' />
                 </CustomAvatar>
                 <Typography sx={{ fontWeight: 500 }}>Net Profit</Typography>
               </Box>
               <Typography variant='h5' sx={{ mb: 2.5 }}>
-               {totalFuelProfit} ৳
+                {totalFuelProfit} ৳
               </Typography>
-
             </Grid>
           </Grid>
         </Box>

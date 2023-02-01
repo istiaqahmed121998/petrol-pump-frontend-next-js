@@ -32,10 +32,8 @@ const navigation = () => {
       ]
     },
     {
-      badgeContent: '2',
       title: 'Manager',
       icon: 'tabler:user',
-      badgeColor: 'success',
       children: [
         {
           title: 'View',

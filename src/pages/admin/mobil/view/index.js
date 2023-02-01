@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { Link } from '@mui/material'
 import Card from '@mui/material/Card'
-
 import CardHeader from '@mui/material/CardHeader'
 import CircularProgress from '@mui/material/CircularProgress'
 import moment from 'moment'
@@ -47,7 +46,7 @@ const viewMobil = () => {
       headerName: 'Date',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.date}
+          {moment(params.row.date).format("DD/MM/YYYY")}
         </Typography>
       )
     },
@@ -114,7 +113,7 @@ const viewMobil = () => {
       headerName: 'Total stock',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.new_stock}
+          {params.row.total_stock}
         </Typography>
       )
     },

@@ -47,7 +47,7 @@ const viewOctane = () => {
       headerName: 'Date',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.date}
+            {moment(params.row.date).format("DD/MM/YYYY")}
         </Typography>
       )
     },
@@ -114,7 +114,7 @@ const viewOctane = () => {
       headerName: 'Total stock',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.new_stock}
+          {params.row.total_stock}
         </Typography>
       )
     },

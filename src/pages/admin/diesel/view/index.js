@@ -20,8 +20,7 @@ import YesNoDialog from 'src/views/custom/manager/deleteDialog'
 // ** Third Party Imports
 import 'cleave.js/dist/addons/cleave-phone.us'
 
-import {addDays,subDays} from 'date-fns'
-
+import { addDays, subDays } from 'date-fns'
 
 import { axiosInstance } from 'src/lib/axios'
 
@@ -38,8 +37,8 @@ const viewDiesel = () => {
   const [searchValue, setSearchValue] = useState('')
   const [sortColumn, setSortColumn] = useState('date')
   const [isDeleted, setIsDeleted] = useState(false)
-  const [id,setId] = useState(-1)
-  const columns =  [
+  const [id, setId] = useState(-1)
+  const columns = [
     {
       flex: 1,
       minWidth: 100,
@@ -47,7 +46,7 @@ const viewDiesel = () => {
       headerName: 'Date',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.date}
+          {moment(params.row.date).format('DD/MM/YYYY')}
         </Typography>
       )
     },
@@ -106,7 +105,7 @@ const viewDiesel = () => {
         </Typography>
       )
     },
-  
+
     {
       flex: 1,
       field: 'total_stock',
@@ -114,7 +113,7 @@ const viewDiesel = () => {
       headerName: 'Total stock',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.new_stock}
+          {params.row.total_stock}
         </Typography>
       )
     },
@@ -162,7 +161,7 @@ const viewDiesel = () => {
         </Typography>
       )
     },
-    
+
     {
       flex: 1,
       minWidth: 110,
@@ -206,7 +205,7 @@ const viewDiesel = () => {
     if (newModel.length) {
       setSort(newModel[0].sort)
       setSortColumn(newModel[0].field)
-      fetchTableData(newModel[0].sort,startDateRange,endDateRange, searchValue, newModel[0].field)
+      fetchTableData(newModel[0].sort, startDateRange, endDateRange, searchValue, newModel[0].field)
     } else {
       setSort('DESC')
       setSortColumn('date')
@@ -214,7 +213,7 @@ const viewDiesel = () => {
   }
 
   const fetchTableData = useCallback(
-    async (sort,start,end, q, column) => {
+    async (sort, start, end, q, column) => {
       await axiosInstance
         .get('/diesel', {
           params: {
@@ -235,9 +234,8 @@ const viewDiesel = () => {
     [page, pageSize]
   )
   useEffect(() => {
-    fetchTableData(sort,startDateRange,endDateRange, searchValue, sortColumn)
-  }, [fetchTableData, searchValue, sort, sortColumn,isDeleted,endDateRange])
-
+    fetchTableData(sort, startDateRange, endDateRange, searchValue, sortColumn)
+  }, [fetchTableData, searchValue, sort, sortColumn, isDeleted, endDateRange])
 
   // ** Hook
   const handleOnChangeRange = dates => {
@@ -247,50 +245,55 @@ const viewDiesel = () => {
   }
   const handleSearch = value => {
     setSearchValue(value)
-    fetchTableData(sort,startDateRange,endDateRange, value, sortColumn)
+    fetchTableData(sort, startDateRange, endDateRange, value, sortColumn)
   }
   return (
     <>
       <Card>
         <CardHeader title='Shift Sells' />
-        <YesNoDialog open={deleteDialogOpen} setOpen={setDeleteDialogOpen} id={id} deleteUrl={"/diesel"}  setIsDeleted={setIsDeleted}/>
+        <YesNoDialog
+          open={deleteDialogOpen}
+          setOpen={setDeleteDialogOpen}
+          id={id}
+          deleteUrl={'/diesel'}
+          setIsDeleted={setIsDeleted}
+        />
         {isLoading ? (
           <Box sx={{ mt: 6, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <CircularProgress sx={{ mb: 4 }} />
             <Typography>Loading...</Typography>
           </Box>
         ) : (
-          <div style={{ height: 700, overflow: "auto" }}>
-          
-          <DataGrid
-            autoHeight
-            pagination
-            rows={rows}
-            rowCount={total}
-            columns={columns}
-            checkboxSelection
-            pageSize={pageSize}
-            sortingMode='server'
-            paginationMode='server'
-            onSortModelChange={handleSortModel}
-            rowsPerPageOptions={[ 31,50,100]}
-            onPageChange={newPage => setPage(newPage)}
-            components={{ Toolbar: CustomServerSideToolbar }}
-            onPageSizeChange={newPageSize => setPageSize(newPageSize)}
-            componentsProps={{
-              baseButton: {
-                variant: 'outlined'
-              },
-              toolbar: {
-                value: searchValue,
-                clearSearch: () => handleSearch(''),
-                onChange: event => handleSearch(event.target.value),
-                startDateRange: startDateRange,
-                endDateRange: endDateRange,
-                handleOnChangeRange: handleOnChangeRange
-              }
-            }}
-          />
+          <div style={{ height: 700, overflow: 'auto' }}>
+            <DataGrid
+              autoHeight
+              pagination
+              rows={rows}
+              rowCount={total}
+              columns={columns}
+              checkboxSelection
+              pageSize={pageSize}
+              sortingMode='server'
+              paginationMode='server'
+              onSortModelChange={handleSortModel}
+              rowsPerPageOptions={[31, 50, 100]}
+              onPageChange={newPage => setPage(newPage)}
+              components={{ Toolbar: CustomServerSideToolbar }}
+              onPageSizeChange={newPageSize => setPageSize(newPageSize)}
+              componentsProps={{
+                baseButton: {
+                  variant: 'outlined'
+                },
+                toolbar: {
+                  value: searchValue,
+                  clearSearch: () => handleSearch(''),
+                  onChange: event => handleSearch(event.target.value),
+                  startDateRange: startDateRange,
+                  endDateRange: endDateRange,
+                  handleOnChangeRange: handleOnChangeRange
+                }
+              }}
+            />
           </div>
         )}
       </Card>

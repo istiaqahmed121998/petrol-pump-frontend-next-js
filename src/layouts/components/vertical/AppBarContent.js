@@ -1,4 +1,5 @@
 // ** MUI Imports
+import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 
@@ -24,6 +25,7 @@ const AppBarContent = props => {
 
         <ModeToggler settings={settings} saveSettings={saveSettings} />
       </Box>
+      <Typography sx={{fontWeight:'fontWeightMedium',letterSpacing: 0.32, fontSize:"20px"}}>Sadek Filling Station Account Sheet</Typography>
       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
         <UserDropdown settings={settings} />
       </Box>

@@ -19,9 +19,11 @@ function CustomFooterTotalPerDayComponent(props) {
               <TableCell align='right'>{Number((props.totalEarn).toFixed(4))} BDT</TableCell>
               <TableCell align='right'>Total Invest</TableCell>
               <TableCell align='right'>{Number((props.totalInvest).toFixed(4))} BDT</TableCell>
+              <TableCell align='right'>Fuel Profit</TableCell>
+              <TableCell align='right'>{Number((props.totalEarn-props.totalInvest).toFixed(4))} BDT</TableCell>
               <TableCell align='right'>Total Expense</TableCell>
               <TableCell align='right'>{Number((props.totalExpense).toFixed(4))} BDT</TableCell>
-              <TableCell align='right'>Total Profit</TableCell>
+              <TableCell align='right'>Total Net Profit</TableCell>
               <TableCell align='right'>{Number((props.totalProfit).toFixed(4))} BDT</TableCell>
             </TableRow>
           </TableHead>

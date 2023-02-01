@@ -41,7 +41,7 @@ const perDayDiesel = () => {
       headerName: 'Date',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {params.row.date}
+          {moment(params.row.date).format('DD/MM/YYYY')}
         </Typography>
       )
     },
@@ -50,7 +50,7 @@ const perDayDiesel = () => {
       minWidth: 90,
       field: 'perday_sell_quantity',
       headerName: 'Sell Quantity',
-      type:'number',
+      type: 'number',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
           {params.row.perday_sell_quantity}
@@ -62,7 +62,7 @@ const perDayDiesel = () => {
       minWidth: 110,
       field: 'perday_invest',
       headerName: 'Investment',
-      type:'number',
+      type: 'number',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
           {params.row.perday_invest}
@@ -74,7 +74,7 @@ const perDayDiesel = () => {
       minWidth: 120,
       field: 'perday_earn',
       headerName: 'Earn',
-      type:'number',
+      type: 'number',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
           {params.row.perday_earn}
@@ -86,7 +86,7 @@ const perDayDiesel = () => {
       field: 'profit',
       minWidth: 150,
       headerName: 'Profit',
-      type:'number',
+      type: 'number',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: params.row.perday_profit >= 0 ? 'green' : 'red' }}>
           {params.row.perday_profit}
@@ -137,7 +137,7 @@ const perDayDiesel = () => {
   // ** Hook
   const handleOnChangeRange = dates => {
     const [start, end] = dates
-    
+
     setStartDateRange(start)
     setEndDateRange(end)
   }
@@ -162,7 +162,6 @@ const perDayDiesel = () => {
               rows={rows}
               rowCount={total}
               columns={columns}
-              
               pageSize={pageSize}
               getRowId={row => row.date}
               sortingMode='server'
@@ -184,32 +183,30 @@ const perDayDiesel = () => {
                   endDateRange: endDateRange,
                   handleOnChangeRange: handleOnChangeRange
                 },
-                footer: {totalInvest,totalEarn,totalProfit,totalSellingQuantity}
-
+                footer: { totalInvest, totalEarn, totalProfit, totalSellingQuantity }
               }}
-              onStateChange={(state) => {
-                const visibleRows = state.filter.visibleRowsLookup;
-                let visibleItems = [];
+              onStateChange={state => {
+                const visibleRows = state.filter.visibleRowsLookup
+                let visibleItems = []
                 for (const [id, value] of Object.entries(visibleRows)) {
                   if (value === true) {
-                    visibleItems.push(id);
+                    visibleItems.push(id)
                   }
                 }
-                const res = rows.filter((item) => visibleItems.includes(item.date));
+                const res = rows.filter(item => visibleItems.includes(item.date))
                 const totalInvestment = res
-                  .map((item) => item.perday_invest)
-                  .reduce((a, b) =>    parseFloat((a) || "0")+parseFloat((b) || "0"), 0);
+                  .map(item => item.perday_invest)
+                  .reduce((a, b) => parseFloat(a || '0') + parseFloat(b || '0'), 0)
                 const totalEarn = res
-                  .map((item) => item.perday_earn)
-                  .reduce((a, b) =>    parseFloat((a) || "0")+parseFloat((b) || "0"), 0);
-                  const totalSellingQuantity = res
-                  .map((item) => item.perday_sell_quantity)
-                  .reduce((a, b) =>    parseFloat((a) || "0")+parseFloat((b) || "0"), 0);
+                  .map(item => item.perday_earn)
+                  .reduce((a, b) => parseFloat(a || '0') + parseFloat(b || '0'), 0)
+                const totalSellingQuantity = res
+                  .map(item => item.perday_sell_quantity)
+                  .reduce((a, b) => parseFloat(a || '0') + parseFloat(b || '0'), 0)
                 setTotalInvest(totalInvestment)
                 setTotalEarn(totalEarn)
-                setTotalProfit(totalEarn-totalInvestment)
+                setTotalProfit(totalEarn - totalInvestment)
                 setTotalSellingQuantity(totalSellingQuantity)
-
               }}
             />
           </div>
