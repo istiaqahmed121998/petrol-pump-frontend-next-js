@@ -7,7 +7,6 @@ import Card from '@mui/material/Card'
 import CustomFooterTotalComponent from 'src/@core/layouts/components/extra-components/CustomFooterTotalComponent'
 import CardHeader from '@mui/material/CardHeader'
 import CircularProgress from '@mui/material/CircularProgress'
-import moment from 'moment'
 import { DataGrid } from '@mui/x-data-grid'
 
 import CustomServerSideToolbar from 'src/@core/layouts/components/extra-components/CustomServerSideToolbar'
